@@ -8,8 +8,8 @@ import java.util.List;
 
 @RestController
 public class MainController {
-    @GetMapping("/")
+    @GetMapping("/api")
     public List<Object> index(){
-        return Arrays.asList("헬로","뼬로");
+        return Arrays.asList("api","테스트");
     }
 }
