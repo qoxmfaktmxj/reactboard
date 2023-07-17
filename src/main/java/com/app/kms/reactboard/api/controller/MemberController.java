@@ -32,12 +32,12 @@ public class MemberController {
         return "login";
     }
 
-    @GetMapping("api/member/login")
+    @GetMapping("/member/login")
     public String loginForm() {
         return "login";
     }
 
-    @PostMapping("api/member/login")
+    @PostMapping("/member/login")
     public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session) {
         MemberDTO loginResult = memberService.login(memberDTO);
         if (loginResult != null) {
