@@ -17,24 +17,24 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/board")
+@RequestMapping("/api/board")
 public class BoardController {
     private final BoardService boardService;
     private final CommentService commentService;
 
-    @GetMapping("/save")
+    @GetMapping("/api/save")
     public String saveForm() {
         return "save";
     }
 
-    @PostMapping("/save")
+    @PostMapping("/api/save")
     public String save(@ModelAttribute BoardDTO boardDTO) throws IOException {
         System.out.println("boardDTO = " + boardDTO);
         boardService.save(boardDTO);
         return "index";
     }
 
-    @GetMapping("/")
+    @GetMapping("/api/")
     public String findAll(Model model) {
         // DB에서 전체 게시글 데이터를 가져와서 list.html에 보여준다.
         List<BoardDTO> boardDTOList = boardService.findAll();
@@ -42,7 +42,7 @@ public class BoardController {
         return "list";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/api/{id}")
     public String findById(@PathVariable Long id, Model model,
                            @PageableDefault(page=1) Pageable pageable) {
         /*
@@ -59,14 +59,14 @@ public class BoardController {
         return "detail";
     }
 
-    @GetMapping("/update/{id}")
+    @GetMapping("/api/update/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("boardUpdate", boardDTO);
         return "update";
     }
 
-    @PostMapping("/update")
+    @PostMapping("/apiupdate")
     public String update(@ModelAttribute BoardDTO boardDTO, Model model) {
         BoardDTO board = boardService.update(boardDTO);
         model.addAttribute("board", board);
@@ -74,14 +74,14 @@ public class BoardController {
 //        return "redirect:/board/" + boardDTO.getId();
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/api/delete/{id}")
     public String delete(@PathVariable Long id) {
         boardService.delete(id);
         return "redirect:/board/";
     }
 
     // /board/paging?page=1
-    @GetMapping("/paging")
+    @GetMapping("/api/paging")
     public String paging(@PageableDefault(page = 1) Pageable pageable, Model model) {
 //        pageable.getPageNumber();
         Page<BoardDTO> boardList = boardService.paging(pageable);
